@@ -18,10 +18,12 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String email;
+    private String displayName;
     private String registrationId;
 
-    public User(String email, String registrationId) {
+    public User(String email, String displayName, String registrationId) {
         this.email = email;
+        this.displayName = displayName;
         this.registrationId = registrationId;
     }
 }
