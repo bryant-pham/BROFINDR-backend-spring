@@ -3,10 +3,7 @@ package com.brofindr.application.controller;
 import com.brofindr.application.repository.FriendRepository;
 import com.brofindr.domain.dto.FriendDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,10 @@ public class FriendController {
     @RequestMapping(value = Routes.FIND_FRIENDS_PATH, method = RequestMethod.GET)
     public List<FriendDto> findAllFriends(@PathVariable String userEmail) {
         return friendRepository.findByUserEmail(userEmail);
+    }
+
+    @RequestMapping(value = Routes.ADD_FRIENDS_PATH, method = RequestMethod.POST)
+    public FriendDto addFriend(@RequestBody FriendDto friend) {
+        return friendRepository.save(friend);
     }
 }
