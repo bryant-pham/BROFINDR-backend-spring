@@ -1,6 +1,7 @@
 package com.brofindr.application.controller;
 
 import com.brofindr.application.repository.UserRepository;
+import com.brofindr.application.service.GcmService;
 import com.brofindr.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +14,12 @@ import static com.brofindr.application.controller.Routes.*;
 @RestController
 public class UserController {
     private UserRepository userRepository;
+    private GcmService gcmService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, GcmService gcmService) {
         this.userRepository = userRepository;
+        this.gcmService = gcmService;
     }
 
     @RequestMapping(value = REGISTER_PATH, method = POST)
@@ -26,6 +29,8 @@ public class UserController {
 
     @RequestMapping(value = "/")
     public Iterable<User> test() {
-        return userRepository.findAll();
+        gcmService.sendPushNotification();
+        //return userRepository.findAll();
+        return null;
     }
 }
